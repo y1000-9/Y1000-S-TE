@@ -70,7 +70,93 @@
     💬 Sohbet Odasına Gir
   </button>
 </a>
+<!-- 🎲 Rastgele Söz Butonu -->
+<div style="text-align: center; margin-top: 40px;">
+  <button onclick="showRandomMessage()" style="
+    background-color: #222;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 15px;">
+    🎲 Rastgele Söz
+  </button>
+  <div id="randomMessage" style="margin-top: 10px; font-size: 16px;"></div>
+</div>
 
+<!-- 🧠 “Sen Kimsin?” Testi -->
+<div style="text-align: center; margin-top: 40px;">
+  <button onclick="startTest()" style="
+    background-color: #222;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;">
+    🧠 “Sen Kimsin?” Testi
+  </button>
+  <div id="testContainer" style="margin-top: 20px;"></div>
+</div>
+
+<script>
+  const messages = [
+    "Zirvede bıraktı, ama geri dönebilir.",
+    "Y1000 mi? O sadece bir iz bırakır.",
+    "Konuşursan kaybolursun, susarsan Y1000’e yaklaşabilirsin.",
+    "Sonsuzluk sessizlikte gizlidir.",
+    "Kim olduğunu bilmeyen, herkestir."
+  ];
+
+  function showRandomMessage() {
+    const msg = messages[Math.floor(Math.random() * messages.length)];
+    document.getElementById("randomMessage").innerText = msg;
+  }
+
+  const questions = [
+    "Kendini gizlemeyi sever misin?",
+    "Kalabalıklar seni yorar mı?",
+    "İz bırakmadan gitmeyi düşündün mü?",
+    "Görünmeden konuşmak cazip mi?",
+    "Kimse seni gerçekten tanımıyor mu?"
+  ];
+
+  let currentQuestion = 0;
+  let score = 0;
+
+  function startTest() {
+    currentQuestion = 0;
+    score = 0;
+    showQuestion();
+  }
+
+  function showQuestion() {
+    if (currentQuestion < questions.length) {
+      document.getElementById("testContainer").innerHTML = `
+        <p>${questions[currentQuestion]}</p>
+        <button onclick="answer(true)">Evet</button>
+        <button onclick="answer(false)">Hayır</button>
+      `;
+    } else {
+      showResult();
+    }
+  }
+
+  function answer(isYes) {
+    if (isYes) score++;
+    currentQuestion++;
+    showQuestion();
+  }
+
+  function showResult() {
+    let result = "";
+    if (score <= 1) result = "Sen sıradan bir izleyicisin.";
+    else if (score <= 3) result = "Sen Y1000’in gölgesindesin.";
+    else result = "Sen, Y1000’in iz bıraktığı yerden yürüyorsun.";
+
+    document.getElementById("testContainer").innerHTML = `<p><strong>${result}</strong></p>`;
+  }
+</script>
   <div class="divider"></div>
 
   <p style="font-size:3.5vw; color:#888;">
