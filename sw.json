@@ -1,7 +1,0 @@
-self.addEventListener("install", function(e) {
-  console.log("Y1000 Gölge Sohbeti yüklendi.");
-});
-
-self.addEventListener("fetch", function(event) {
-  event.respondWith(fetch(event.request));
-});
