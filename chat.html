@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Y1000 Chat</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: monospace;
+      padding: 20px;
+      margin: 0;
+    }
+    #chatbox {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    #messages {
+      border: 1px solid #444;
+      padding: 10px;
+      height: 400px;
+      overflow-y: scroll;
+      background-color: #111;
+    }
+    .message {
+      margin: 5px 0;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      background-color: #111;
+      border: 1px solid #444;
+      color: #fff;
+    }
+    button {
+      padding: 10px;
+      background-color: #222;
+      color: #fff;
+      border: 1px solid #444;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="chatbox">
+    <h2>🕶️ Y1000 Anonim Chat</h2>
+    <div id="messages"></div>
+    <input type="text" id="messageInput" placeholder="Bir şey yaz..." />
+    <button onclick="sendMessage()">Gönder</button>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA-saiJX8oIx4_BEDyceV3aWY7bTSs_12Q",
+      authDomain: "y1000chat.firebaseapp.com",
+      databaseURL: "https://y1000chat-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "y1000chat",
+      storageBucket: "y1000chat.firebasestorage.app",
+      messagingSenderId: "313024346355",
+      appId: "1:313024346355:web:e8b42646b8b24200669f86"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const messagesRef = ref(db, "messages");
+
+    function generateAnonName() {
+      const names = ["Gölge", "Bilinmeyen", "Sessiz", "Hayalet", "Maskesiz"];
+      const random = Math.floor(Math.random() * names.length);
+      const number = Math.floor(Math.random() * 9000) + 1000;
+      return names[random] + "#" + number;
+    }
+
+    const username = generateAnonName();
+
+    document.getElementById("messageInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    function sendMessage() {
+      const message = document.getElementById("messageInput").value;
+      if (message.trim() !== "") {
+        push(messagesRef, {
+          name: username,
+          text: message
+        });
+        document.getElementById("messageInput").value = "";
+      }
+    }
+
+    onChildAdded(messagesRef, function(data) {
+      const msg = data.val();
+      const messagesDiv = document.getElementById("messages");
+      messagesDiv.innerHTML += `<div class='message'><b>${msg.name}:</b> ${msg.text}</div>`;
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    });
+  </script>
+</body>
+</html>
