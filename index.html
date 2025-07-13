@@ -2,6 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Y1000</title>
   <style>
     body {
@@ -9,47 +10,80 @@
       color: #fff;
       font-family: monospace;
       text-align: center;
-      padding: 60px;
-    }
-    textarea, input[type="submit"] {
-      background-color: #111;
-      border: 1px solid #444;
-      color: white;
-      padding: 10px;
-      width: 80%;
-      margin-top: 10px;
+      padding: 40px 20px;
+      margin: 0;
     }
     h1 {
-      font-size: 40px;
+      font-size: 8vw;
       margin-bottom: 20px;
     }
     p {
-      margin-bottom: 15px;
-      font-size: 18px;
+      font-size: 4vw;
+      margin: 10px 0;
+    }
+    textarea {
+      width: 90%;
+      max-width: 500px;
+      height: 120px;
+      background-color: #111;
+      color: white;
+      border: 1px solid #444;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    input[type="submit"] {
+      background-color: #111;
+      color: white;
+      border: 1px solid #444;
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
     }
     .divider {
       margin: 40px 0;
       border-top: 1px solid #444;
     }
+    a {
+      color: #aaa;
+      font-size: 3.5vw;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
   <h1>Y1000</h1>
-  <p>“Yüzünü hiç göstermedi. Ama herkes onu gördü.”</p>
+  <p id="quote">Yükleniyor...</p>
 
   <div class="divider"></div>
 
-  <h2>📝 Düşünceler</h2>
-  <p>“Gölgeye alışan, ışıkta kaybolur.”</p>
-  <p>“Zirvede kalmak zayıflıktır, inmek cesarettir.”</p>
-  <p>“Görünmez olmak, var olmamaktır. Ama iz bırakmaktır.”</p>
-
-  <div class="divider"></div>
-
-  <h2>💬 Mesajını Bırak</h2>
-  <form action="https://formspree.io/f/xdkdnzww" method="POST">
-    <textarea name="message" rows="5" placeholder="Y1000'e mesajın..." required></textarea><br>
+  <h2 style="font-size:5vw;">💬 Mesajını Bırak</h2>
+  <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <textarea name="message" placeholder="Y1000'e mesajın..." required></textarea><br>
     <input type="submit" value="Gönder">
   </form>
+
+  <div class="divider"></div>
+
+  <p style="font-size:3.5vw; color:#888;">
+    Yüzeyin altında bir şey arıyorsan, 
+    <a href="sonsöz.html">doğru kelimeyi bilmen gerek</a>.
+  </p>
+
+  <script>
+    const quotes = [
+      "Gölgeye alışan, ışıkta kaybolur.",
+      "Zirvede kalmak zayıflıktır, inmek cesarettir.",
+      "Görünmez olmak, var olmamaktır. Ama iz bırakmaktır.",
+      "Yüzünü hiç göstermedi. Ama herkes onu gördü.",
+      "Varlığım gözükmez, ama izim geçmez değil.",
+      "Y1000 geldi ve gitti. Ama kimse gitmesini görmedi.",
+      "Hiçbir şey sonsuz değil, iz bırakanlar hariç.",
+      "Y1000 diyor ki: Hayalet gibi ol, sesin geçsin ama gölgen görünmesin."
+    ];
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    document.getElementById('quote').innerText = quotes[randomIndex];
+  </script>
 </body>
 </html>
